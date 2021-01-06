@@ -1,0 +1,61 @@
+<div>
+  <form class="form-inline md-form form-sm">
+    <input [(ngModel)]="filterValueMoviesTitle" name="filter" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search for title" aria-label="Search for title"
+           mdbInput>
+    <a [routerLink]="'/movies/find-by-title/'+filterValueMoviesTitle">Search</a>
+    <input [(ngModel)]="filterValueMoviesYear" name="filter" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search by year" aria-label="Search by year"
+           mdbInput>
+    <a [routerLink]="'/movies/get-by-year/'+filterValueMoviesYear">Search</a>
+  </form>
+  <input #popularityCheckBox
+         id="popularityCheckBox"
+         type="checkbox"
+         [checked]="popularity"
+         (change)="onCheck(popularityCheckBox.checked)" />
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th>Actors</th>
+      <th>Countries</th>
+      <th>Description</th>
+      <th>Directors</th>
+      <th>Genres</th>
+      <th>Id</th>
+      <th>Imdb Url</th>
+      <th>Img Url</th>
+      <th>Languages</th>
+      <th>Metascore</th>
+      <th>Rating</th>
+      <th>Runtime</th>
+      <th>Tagline</th>
+      <th>Users rating</th>
+      <th>Votes</th>
+      <th>Year</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let dataitem of MovieList">
+      <td>{{dataitem.title}}</td>
+      <td>{{dataitem.actors}}</td>
+      <td>{{dataitem.countries}}</td>
+      <td>{{dataitem.description}}</td>
+      <td>{{dataitem.directors}}</td>
+      <td>{{dataitem.genre}}</td>
+      <td>{{dataitem.id}}</td>
+      <td>{{dataitem.imdb_url}}</td>
+      <td><img [src]="dataitem.img_url"></td>
+      <td>{{dataitem.languages}}</td>
+      <td>{{dataitem.metascore}}</td>
+      <td>{{dataitem.rating}}</td>
+      <td>{{dataitem.runtime}}</td>
+      <td>{{dataitem.tagline}}</td>
+      <td>{{dataitem.users_rating}}</td>
+      <td>{{dataitem.votes}}</td>
+      <td>{{dataitem.year}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <h5>No further items were found</h5>
+</div>
