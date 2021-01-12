@@ -1,7 +1,7 @@
 import {SharedService} from '../../shared.service';
 import {Actor} from '../../models/actor';
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-show-actors',
@@ -10,7 +10,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class ShowActorsComponent implements OnInit {
 
-  constructor(private service: SharedService, private route: ActivatedRoute,) {
+  constructor(private service: SharedService, private route: ActivatedRoute) {
   }
 
   ActorList: Actor[] = [];
@@ -37,6 +37,12 @@ export class ShowActorsComponent implements OnInit {
       this.service.getActorList().subscribe(data => {
         this.ActorList = data;
       });
+    }
+  }
+
+  deleteClicked(dataItem: Actor): void {
+    if (confirm('Are you sure you want to delete ' + dataItem.name + ' from the database?')) {
+      this.service.deleteActorByID(dataItem.id);
     }
   }
 

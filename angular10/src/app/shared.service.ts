@@ -37,7 +37,9 @@ readonly APIUrl = 'http://localhost:5000';
     return this.http.get<Genre[]>(this.APIUrl + '/directors/' + directorID + '/genres');
   }
 
-
+  deleteActorByID(actorID: string): void {
+    this.http.delete(this.APIUrl + '/' + actorID);
+  }
 
   getActorList(): Observable<Actor[]>{
     return this.http.get<Actor[]>(this.APIUrl + '/actors');
