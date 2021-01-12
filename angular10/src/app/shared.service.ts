@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Actor} from './models/actor';
 import {Movie} from './models/movie';
+import {Genre} from './models/genre';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,14 @@ readonly APIUrl = 'http://localhost:5000';
 
   getMovieListFilteredByTitle(filter: string): Observable<Movie[]>{
     return this.http.get<Movie[]>(this.APIUrl + '/movies/find-by-title/' + filter);
+  }
+
+  getGenresByActor(actorID: string): Observable<Genre[]>{
+    return this.http.get<Genre[]>(this.APIUrl + '/actors/' + actorID + '/genres');
+  }
+
+  getGenresByDirector(directorID: string): Observable<Genre[]>{
+    return this.http.get<Genre[]>(this.APIUrl + '/directors/' + directorID + '/genres');
   }
 
 

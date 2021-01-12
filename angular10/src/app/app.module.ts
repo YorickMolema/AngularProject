@@ -12,6 +12,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ShowActorsComponent } from './actors/show-actors/show-actors.component';
 import {ShowMoviesComponent} from './movies/show-movies/show-movies.component';
 import {MoviesComponent} from './movies/movies.component';
+import { GenresComponent } from './genres/genres.component';
+import { ShowGenresComponent } from './genres/show-genres/show-genres.component';
 
 
 @NgModule({
@@ -21,6 +23,8 @@ import {MoviesComponent} from './movies/movies.component';
     ShowActorsComponent,
     MoviesComponent,
     ShowMoviesComponent,
+    GenresComponent,
+    ShowGenresComponent,
   ],
   imports: [
     RouterModule,

@@ -1,0 +1,28 @@
+<div>
+  <form class="form-inline md-form form-sm">
+    <input [(ngModel)]="actorID" name="filter" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search Genres by Actor id" aria-label="Search"
+           mdbInput>
+    <a [routerLink]="'/genres/get-by-actor/'+actorID">Search</a>
+    <input [(ngModel)]="directorID" name="filter" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search Genres by Director id" aria-label="Search"
+           mdbInput>
+    <a [routerLink]="'/genres/get-by-director/'+directorID">Search</a>
+  </form>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>
+          Name
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let dataItem of genreList">
+      <td>
+        {{dataItem.name}}
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <h5>No further items were found</h5>
+</div>
