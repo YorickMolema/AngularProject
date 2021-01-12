@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Genre} from '../../models/genre';
 import {SharedService} from '../../shared.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-show-genres',
@@ -9,13 +10,19 @@ import {SharedService} from '../../shared.service';
 })
 export class ShowGenresComponent implements OnInit {
 
-  constructor(private service: SharedService) { }
+  constructor(private service: SharedService, private route: ActivatedRoute) { }
 
   genreList: Genre[] = [];
-  actorID: string | null = '';
-  directorID: string | null = '';
+  actorID = '';
+  directorID = '';
+  urlType: string | null = '';
 
   ngOnInit(): void {
+    this.route.url.subscribe(data => {
+      if (data[1]) {
+        this.urlType = data[1].path; // check what type of data is being requested
+      }
+    });
     this.refreshGenreList();
   }
 
@@ -24,11 +31,11 @@ export class ShowGenresComponent implements OnInit {
   }
 
   refreshGenreList(): void {
-    if (this.actorID != null) {
+    if (this.urlType === 'get-by-actor') {
       this.service.getGenresByActor(this.actorID).subscribe(data => {
           this.genreList = data;
         });
-    } else if (this.directorID != null) {
+    } else if (this.urlType === 'get-by-director') {
       this.service.getGenresByDirector(this.directorID).subscribe(data => {
           this.genreList = data;
         });
