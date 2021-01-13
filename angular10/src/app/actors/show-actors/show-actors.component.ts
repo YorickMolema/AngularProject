@@ -1,7 +1,7 @@
 import {SharedService} from '../../shared.service';
-import {Actor} from '../../models/actor';
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, ParamMap} from '@angular/router';
+import {Actor} from '../../models/actor';
 
 @Component({
   selector: 'app-show-actors',
@@ -14,13 +14,25 @@ export class ShowActorsComponent implements OnInit {
   }
 
   ActorList: Actor[] = [];
-  filterValue: string | null = '';
+
+  path: string | null = '';
+  filter: string | null = '';
   filterValueID: string | null = '';
+  ModalTitle: string | null = '';
+  ActivateAddActorComp = false;
+  ActorName: any;
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      this.filterValueID = params.get('id');
-      this.refreshActorList();
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      if (params.get('id')) {
+        this.filter = params.get('id');
+        this.path = '/actors/';
+        this.refreshActorList();
+      } else {
+        this.filter = params.get('');
+        this.path = '/actors';
+        this.refreshActorList();
+      }
     });
   }
 
@@ -28,23 +40,36 @@ export class ShowActorsComponent implements OnInit {
     this.refreshActorList();
   }
 
+  addClick(): void{
+    this.ModalTitle = 'Add Actor';
+    this.ActivateAddActorComp = true;
+  }
+
+  closeClick(): void{
+    this.ActivateAddActorComp = false;
+    this.refreshActorList();
+  }
+
   refreshActorList(): void {
-    if (this.filterValueID != null) {
-      this.service.getActorListFiltered(this.filterValueID).subscribe(data => {
-        this.ActorList = data;
-      });
-    } else {
-      this.service.getActorList().subscribe(data => {
-        this.ActorList = data;
-      });
+    if (this.path) {
+      if (this.filter) {
+        this.service.getActorListFiltered(this.path, this.filter).subscribe(data => {
+          this.ActorList = data;
+        });
+      } else {
+        this.service.getActorListFiltered(this.path, '').subscribe(data => {
+          this.ActorList = data;
+        });
+      }
     }
   }
 
   deleteClicked(dataItem: Actor): void {
-    if (confirm('Are you sure you want to delete ' + dataItem.name + ' from the database?')) {
-      this.service.deleteActorByID(dataItem.id);
+    if (confirm('Are you sure you want to delete ' + dataItem.Name + ' from the database?')) {
+      this.service.deleteActorByID(dataItem.id).subscribe(data => {
+        alert(data.toString());
+        this.refreshActorList();
+      });
     }
   }
-
-
 }

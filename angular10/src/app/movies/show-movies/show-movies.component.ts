@@ -1,6 +1,6 @@
 import {SharedService} from '../../shared.service';
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, ParamMap} from '@angular/router';
 import {Movie} from '../../models/movie';
 
 @Component({
@@ -11,69 +11,77 @@ import {Movie} from '../../models/movie';
 export class ShowMoviesComponent implements OnInit {
 
   constructor(private service: SharedService, private route: ActivatedRoute) {
-    this.popularity = false;
   }
 
   MovieList: Movie[] = [];
-  filterValueMoviesTitle: string | null = '';
+
+  path: string | null = '';
+  filter: string | null = '';
   filterValueMoviesYear: string | null = '';
-  public popularity: boolean | null;
+  filterValueMoviesTitle: string | null = '';
+  filterValueMoviesActor: string | null = '';
+  filterValueMoviesDirector: string | null = '';
+  filterValueMoviesImdbURL: string | null = '';
+  ActivateAddMovie = false;
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      this.filterValueMoviesTitle = params.get('title');
-      this.filterValueMoviesYear = params.get('year');
-      if (!this.filterValueMoviesTitle) {
-        this.filterValueMoviesTitle = params.get('name');
-        this.refreshMovieListWithActor();
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      if (params.get('title')) {
+        this.filter = params.get('title');
+        this.path = '/movies/find-by-title/';
+        this.refreshMovieList();
       }
-      if (this.filterValueMoviesYear) {
-        this.refreshMovieListWithYear();
-      } else {
-        this.refreshMovieListWithTitle();
+      if (params.get('year')) {
+        this.filter = params.get('year') + '?popularity=true';
+        this.path = '/movies/get-by-year/';
+        this.refreshMovieList();
+      }
+      if (params.get('director')) {
+        this.filter = params.get('director');
+        this.path = '/movies/get-by-director/';
+        this.refreshMovieList();
+      }
+      if (params.get('actor')) {
+        this.filter = params.get('actor');
+        this.path = '/actors/find-movie-by-actor/';
+        this.refreshMovieList();
+      }
+      if (params.get('ImdbURL')) {
+        this.filter = params.get('ImdbURL');
+        this.path = '/movies/';
+        this.refreshMovieList();
       }
     });
   }
 
   handleFilterClick(event: MouseEvent): void {
-    this.refreshMovieListWithActor();
+    this.refreshMovieList();
   }
 
-  refreshMovieListWithActor(): void {
-    if (this.filterValueMoviesTitle) {
-      this.service.getMovieListFilteredByActor(this.filterValueMoviesTitle).subscribe(data => {
+  refreshMovieList(): void {
+    if (this.path && this.filter) {
+      this.service.getMovieList(this.path, this.filter).subscribe(data => {
         this.MovieList = data;
       });
     }
   }
 
-  public onCheck(value: boolean): void{
-    this.popularity = value;
+  closeClick(): void {
+    this.ActivateAddMovie = false;
+    this.refreshMovieList();
   }
 
-  refreshMovieListWithYear(): void {
-    if (this.popularity) {
-      if (this.filterValueMoviesYear) {
-        this.service.getMovieListFilteredByYear(this.filterValueMoviesYear, true).subscribe(data => {
-          this.MovieList = data;
-        });
-      }
-    } else {
-      if (this.filterValueMoviesYear) {
-        this.service.getMovieListFilteredByYear(this.filterValueMoviesYear, false).subscribe(data => {
-          this.MovieList = data;
-        });
-      }
-    }
+  addClick(): void {
+    this.ActivateAddMovie = true;
   }
 
-  refreshMovieListWithTitle(): void {
-    if (this.filterValueMoviesTitle) {
-      this.service.getMovieListFilteredByTitle(this.filterValueMoviesTitle).subscribe(data => {
-        this.MovieList = data;
+  deleteClick(url: string): void {
+    if (confirm('Are you sure?')) {
+      this.service.deleteMovie(url).subscribe(data => {
+        alert(data.toString());
+        this.refreshMovieList();
       });
     }
   }
-
 
 }

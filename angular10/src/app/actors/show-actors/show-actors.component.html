@@ -1,8 +1,30 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary float-right m-2"
+        data-toggle="modal" data-target="#exampleModal"
+        (click)="addClick()"
+        data-backdrop="static" data-keyboard = "false"
+>
+  Add Actor
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ModalTitle}}</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" (click)="closeClick()"></button>
+      </div>
+      <div class="modal-body">
+        <app-add-actors [AName]="ActorName" *ngIf="ActivateAddActorComp">
+        </app-add-actors>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div>
   <form class="form-inline md-form form-sm">
-    <input [(ngModel)]="filterValue" name="filter" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search Movie by Name" aria-label="Search"
-           mdbInput>
-    <a [routerLink]="'/actors/find-movie-by-actor/'+filterValue">Search</a>
     <input [(ngModel)]="filterValueID" name="filter" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search by ID" aria-label="Search"
            mdbInput>
     <a [routerLink]="'/actors/'+filterValueID">Search</a>
@@ -10,22 +32,18 @@
   <table class="table table-striped">
     <thead>
     <tr>
-      <th>
-        Name
-      </th>
-      <th>
-        Options
-      </th>
+      <th>Name</th>
+      <th>id</th>
+      <th>options</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let dataItem of ActorList">
-      <td>
-        {{dataItem.name}}
-      </td>
+    <tr *ngFor="let dataitem of ActorList">
+      <td>{{dataitem.Name}}</td>
+      <td>{{dataitem.id}}</td>
       <td>
         <button type="button" class="btn btn-light mr-1"
-                (click)="deleteClicked(dataItem)">
+                (click)="deleteClicked(dataitem)">
           Delete
         </button>
       </td>

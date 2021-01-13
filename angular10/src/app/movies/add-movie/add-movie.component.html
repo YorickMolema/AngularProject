@@ -1,0 +1,71 @@
+<div class="form-froup- row">
+
+  <label class="col-sm-2 col-form-label">Movie Title</label>
+  <div class ="col-sm-10">
+    <input [(ngModel)]="MovieTitle" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Enter Movie Title">
+  </div>
+  <label class="col-sm-2 col-form-label">Movie Rating</label>
+  <div class ="col-sm-10">
+    <input [(ngModel)]="MovieRating" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Enter Movie Rating">
+  </div>
+  <label class="col-sm-2 col-form-label">Movie Year</label>
+  <div class ="col-sm-10">
+    <input [(ngModel)]="MovieYear" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Enter Movie Year">
+  </div>
+  <label class="col-sm-2 col-form-label">Movie User Rating</label>
+  <div class ="col-sm-10">
+    <input [(ngModel)]="MovieUserRating" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Enter Movie User Rating">
+  </div>
+  <label class="col-sm-2 col-form-label">Movie Votes</label>
+  <div class ="col-sm-10">
+    <input [(ngModel)]="MovieVotes" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Enter Movie Votes">
+  </div>
+  <label class="col-sm-2 col-form-label">Movie Metascore</label>
+  <div class ="col-sm-10">
+    <input [(ngModel)]="MovieMetaScore" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Enter Moviescore">
+  </div>
+  <label class="col-sm-2 col-form-label">Movie Img url</label>
+  <div class ="col-sm-10">
+    <input [(ngModel)]="MovieImgUrl" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Enter Movie Img url">
+  </div>
+  <label class="col-sm-2 col-form-label">Movie Countries</label>
+  <div class ="col-sm-10">
+    <input [(ngModel)]="MovieCountries" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Enter Movie Countries">
+  </div>
+  <label class="col-sm-2 col-form-label">Movie Languages</label>
+  <div class ="col-sm-10">
+    <input [(ngModel)]="MovieLanguages" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Enter Movie Languages">
+  </div>
+  <label class="col-sm-2 col-form-label">Movie Actors</label>
+  <div class ="col-sm-10">
+    <input [(ngModel)]="MovieActors" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Enter Movie Actors">
+  </div>
+  <label class="col-sm-2 col-form-label">Movie Genre</label>
+  <div class ="col-sm-10">
+    <input [(ngModel)]="MovieGenre" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Enter Movie Genres">
+  </div>
+  <label class="col-sm-2 col-form-label">Movie Tagline</label>
+  <div class ="col-sm-10">
+    <input [(ngModel)]="MovieTagline" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Enter Movie Tagline">
+  </div>
+  <label class="col-sm-2 col-form-label">Movie Description</label>
+  <div class ="col-sm-10">
+    <input [(ngModel)]="MovieDescription" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Enter Movie Description">
+  </div>
+  <label class="col-sm-2 col-form-label">Movie Director</label>
+  <div class ="col-sm-10">
+    <input [(ngModel)]="MovieDirectors" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Enter Movie Directors">
+  </div>
+  <label class="col-sm-2 col-form-label">Movie Runtime</label>
+  <div class ="col-sm-10">
+    <input [(ngModel)]="MovieRuntime" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Enter Movie Runtime">
+  </div>
+  <label class="col-sm-2 col-form-label">Movie Imdb Url</label>
+  <div class ="col-sm-10">
+    <input [(ngModel)]="MovieImdbUrl" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Enter Movie Imdb Url">
+  </div>
+</div>
+
+<button (click)="addMovie()" class="btn btn-primary">
+  Add movie
+</button>

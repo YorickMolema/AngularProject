@@ -3,15 +3,48 @@
     <input [(ngModel)]="filterValueMoviesTitle" name="filter" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search for title" aria-label="Search for title"
            mdbInput>
     <a [routerLink]="'/movies/find-by-title/'+filterValueMoviesTitle">Search</a>
-    <input [(ngModel)]="filterValueMoviesYear" name="filter" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search by year" aria-label="Search by year"
+    <input [(ngModel)]="filterValueMoviesActor" name="filter" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search Movie by Actor" aria-label="Search by actor"
+           mdbInput>
+    <a [routerLink]="'/actors/find-movie-by-actor/'+filterValueMoviesActor">Search</a>
+    <input [(ngModel)]="filterValueMoviesYear" name="filter" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search Movie by year" aria-label="Search by year"
            mdbInput>
     <a [routerLink]="'/movies/get-by-year/'+filterValueMoviesYear">Search</a>
+    <input [(ngModel)]="filterValueMoviesDirector" name="filter" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search Movie by director" aria-label="Search by director"
+           mdbInput>
+    <a [routerLink]="'/movies/get-by-director/'+filterValueMoviesDirector">Search</a>
+    <input [(ngModel)]="filterValueMoviesImdbURL" name="filter" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search by Imdb URL" aria-label="Search by Imdb URL"
+           mdbInput>
+    <a [routerLink]="'/movies/'+filterValueMoviesImdbURL">Search</a>
+
+    <br>
+    <br>
+    <a [routerLink]="'/movies/get-movies-ordered-by-popularity?subsetTop50=true'">Search top 50 most popular movies</a>
+    <br>
+    <br>
+    <a [routerLink]="'/movies/get-movies-ordered-by-popularity'">Search all movies orderd by popularity</a>
+
   </form>
-  <input #popularityCheckBox
-         id="popularityCheckBox"
-         type="checkbox"
-         [checked]="popularity"
-         (change)="onCheck(popularityCheckBox.checked)" />
+
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary float-right m-2" data-toggle="modal" data-target="#exampleModal"
+          (click)="addClick()" data-backdrop="static" data-keyboard="false">
+    Add movie
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Movie</h5>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" (click)="closeClick()"></button>
+        </div>
+        <div class="modal-body">
+          <app-add-movie *ngIf="ActivateAddMovie"></app-add-movie>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <table class="table table-striped">
     <thead>
@@ -24,7 +57,7 @@
       <th>Genres</th>
       <th>Id</th>
       <th>Imdb Url</th>
-      <th>Img Url</th>
+      <th>Poster</th>
       <th>Languages</th>
       <th>Metascore</th>
       <th>Rating</th>
@@ -54,6 +87,15 @@
       <td>{{dataitem.users_rating}}</td>
       <td>{{dataitem.votes}}</td>
       <td>{{dataitem.year}}</td>
+      <td>
+        <button type="button" class="btn btn-light mr-1"
+                (click)="deleteClick(dataitem.imdb_url)"
+        >
+          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+          </svg>
+        </button>
+      </td>
     </tr>
     </tbody>
   </table>

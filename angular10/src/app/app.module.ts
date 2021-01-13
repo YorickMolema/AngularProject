@@ -14,7 +14,10 @@ import {ShowMoviesComponent} from './movies/show-movies/show-movies.component';
 import {MoviesComponent} from './movies/movies.component';
 import { GenresComponent } from './genres/genres.component';
 import { ShowGenresComponent } from './genres/show-genres/show-genres.component';
-
+import {StatsComponent} from './stats/stats.component';
+import {ShowStatsComponent} from './stats/show-stats/show-stats.component';
+import { AddMovieComponent } from './movies/add-movie/add-movie.component';
+import {AddActorsComponent} from './actors/add-actors/add-actors.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,10 @@ import { ShowGenresComponent } from './genres/show-genres/show-genres.component'
     ShowMoviesComponent,
     GenresComponent,
     ShowGenresComponent,
+    ShowStatsComponent,
+    StatsComponent,
+    AddMovieComponent,
+    AddActorsComponent
   ],
   imports: [
     RouterModule,

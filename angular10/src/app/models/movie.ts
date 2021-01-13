@@ -15,10 +15,11 @@ export class Movie {
   users_rating: string;
   votes: string;
   year: string;
+  stats: string;
   directors: string;
 
 
-  constructor(actors: string, countries: string, description: string, genre: string, id: number, imdbUrl: string, imgUrl: string, languages: string, metascore: string, rating: string, runtime: string, tagline: string, title: string, usersRating: string, votes: string, year: string, directors: string) {
+  constructor(actors: string, countries: string, description: string, genre: string, id: number, imdbUrl: string, imgUrl: string, languages: string, metascore: string, rating: string, runtime: string, tagline: string, title: string, usersRating: string, votes: string, year: string, stats: string, directors: string) {
     this.actors = actors;
     this.countries = countries;
     this.description = description;
@@ -35,6 +36,7 @@ export class Movie {
     this.users_rating = usersRating;
     this.votes = votes;
     this.year = year;
+    this.stats = stats;
     this.directors = directors;
   }
 }

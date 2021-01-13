@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {Actor} from './models/actor';
 import {Movie} from './models/movie';
 import {Genre} from './models/genre';
+import {Stats} from './models/stats';
 
 @Injectable({
   providedIn: 'root'
@@ -13,36 +14,35 @@ readonly APIUrl = 'http://localhost:5000';
 
   constructor(private http: HttpClient) { }
 
-  getActorListFiltered(filter: string): Observable<Actor[]>{
-    return this.http.get<Actor[]>(this.APIUrl + '/actors/' + filter);
+  getActorListFiltered(path: string, filter: string): Observable<Actor[]>{
+    return this.http.get<Actor[]>(this.APIUrl + path + filter);
   }
 
-  getMovieListFilteredByActor(filter: string): Observable<Movie[]>{
-    return this.http.get<Movie[]>(this.APIUrl + '/actors/find-movie-by-actor/' + filter);
+  deleteActorByID(actorID: string): Observable<Actor[]> {
+    return this.http.delete<Actor[]>(this.APIUrl + '/actors/' + actorID);
   }
 
-  getMovieListFilteredByYear(filter: string, popularity: boolean): Observable<Movie[]>{
-    return this.http.get<Movie[]>(this.APIUrl + '/movies/get-by-year/' + filter + '?popularity=' + String(popularity));
+  getMovieList(path: string, filter: string): Observable<Movie[]> {
+    return this.http.get<Movie[]>(this.APIUrl + path + filter);
   }
 
-  getMovieListFilteredByTitle(filter: string): Observable<Movie[]>{
-    return this.http.get<Movie[]>(this.APIUrl + '/movies/find-by-title/' + filter);
+  deleteMovie(filter: string): Observable<Movie[]> {
+    return this.http.delete<Movie[]>(this.APIUrl + '/movies/' + filter);
   }
 
-  getGenresByActor(actorID: string): Observable<Genre[]>{
-    return this.http.get<Genre[]>(this.APIUrl + '/actors/' + actorID + '/genres');
+  getGenres(path: string, filter: string): Observable<Genre[]>{
+    return this.http.get<Genre[]>(this.APIUrl + path + filter + '/genres');
   }
 
-  getGenresByDirector(directorID: string): Observable<Genre[]>{
-    return this.http.get<Genre[]>(this.APIUrl + '/directors/' + directorID + '/genres');
+  addMovie(val: any): Observable<any>{
+    return this.http.post(this.APIUrl + '/movies  ', val);
   }
 
-  deleteActorByID(actorID: string): void {
-    this.http.delete(this.APIUrl + '/' + actorID);
+  getMovieStats(path: string, filter: string): Observable<Stats[]> {
+    return this.http.get<Stats[]>(this.APIUrl + path + filter);
   }
 
-  getActorList(): Observable<Actor[]>{
-    return this.http.get<Actor[]>(this.APIUrl + '/actors');
+  addActor(val: any): Observable<any>{
+    return this.http.post(this.APIUrl + '/actors', val);
   }
-
 }
