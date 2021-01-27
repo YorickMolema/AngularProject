@@ -16,6 +16,8 @@ export class ShowGenresComponent implements OnInit {
   actorID = '';
   directorID = '';
   urlType: string | null = '';
+  public sorted = false;
+  public sortDirection = false;
 
   ngOnInit(): void {
     this.route.url.subscribe(data => {
@@ -32,11 +34,11 @@ export class ShowGenresComponent implements OnInit {
 
   refreshGenreList(): void {
     if (this.urlType === 'get-by-actor') {
-      this.service.getGenresByActor(this.actorID).subscribe(data => {
+      this.service.getGenresByActor(this.actorID, this.sorted, this.sortDirection).subscribe(data => {
           this.genreList = data;
         });
     } else if (this.urlType === 'get-by-director') {
-      this.service.getGenresByDirector(this.directorID).subscribe(data => {
+      this.service.getGenresByDirector(this.directorID, this.sorted, this.sortDirection).subscribe(data => {
           this.genreList = data;
         });
     } else {
@@ -44,4 +46,11 @@ export class ShowGenresComponent implements OnInit {
     }
   }
 
+  onCheckSortDirection(value: boolean): void {
+    this.sortDirection = value;
+  }
+
+  onCheckSorted(value: boolean): void {
+    this.sorted = value;
+  }
 }

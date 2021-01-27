@@ -7,6 +7,18 @@
            mdbInput>
     <a [routerLink]="'/genres/get-by-director/'+directorID">Search</a>
   </form>
+  <p></p>
+  <input #sortedCheckBox
+         id="sortedCheckBox"
+         type="checkbox"
+         [checked]="sorted"
+         (change)="onCheckSorted(sortedCheckBox.checked)" /> Sort results by year.
+  <p></p>
+  <input #sortDirectionCheckBox
+         id="sortDirectionCheckBox"
+         type="checkbox"
+         [checked]="sortDirection"
+         (change)="onCheckSortDirection(sortDirectionCheckBox.checked)" /> Change sorting direction.
 
   <table class="table table-striped">
     <thead>

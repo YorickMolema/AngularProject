@@ -29,12 +29,14 @@ readonly APIUrl = 'http://localhost:5000';
     return this.http.get<Movie[]>(this.APIUrl + '/movies/find-by-title/' + filter);
   }
 
-  getGenresByActor(actorID: string): Observable<Genre[]>{
-    return this.http.get<Genre[]>(this.APIUrl + '/actors/' + actorID + '/genres');
+  getGenresByActor(actorID: string, sorted: boolean, sortDirection: boolean): Observable<Genre[]>{
+    // tslint:disable-next-line:max-line-length
+    return this.http.get<Genre[]>(this.APIUrl + '/actors/' + actorID + '/genres?sorted=' + String(sorted) + '&sortDirection=' + String(sortDirection));
   }
 
-  getGenresByDirector(directorID: string): Observable<Genre[]>{
-    return this.http.get<Genre[]>(this.APIUrl + '/directors/' + directorID + '/genres');
+  getGenresByDirector(directorID: string, sorted: boolean, sortDirection: boolean): Observable<Genre[]>{
+    // tslint:disable-next-line:max-line-length
+    return this.http.get<Genre[]>(this.APIUrl + '/directors/' + directorID + '/genres?sorted=' + String(sorted) + '&sortDirection=' + String(sortDirection));
   }
 
   deleteActorByID(actorID: string): void {
