@@ -43,7 +43,7 @@ export class ShowGenresComponent implements OnInit {
 
   refreshGenreList(): void {
     if (this.path && this.filter) {
-      this.service.getGenres(this.path, this.filter).subscribe(data => {
+      this.service.getGenres(this.path, this.filter, this.sorted, this.sortDirection).subscribe(data => {
         this.genreList = data;
       });
     }

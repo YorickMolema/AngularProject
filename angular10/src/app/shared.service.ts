@@ -30,22 +30,13 @@ readonly APIUrl = 'http://localhost:5000';
     return this.http.delete<Movie[]>(this.APIUrl + '/movies/' + filter);
   }
 
-  getGenresByActor(actorID: string, sorted: boolean, sortDirection: boolean): Observable<Genre[]>{
+  getGenres(path: string, actorID: string, sorted: boolean, sortDirection: boolean): Observable<Genre[]>{
     // tslint:disable-next-line:max-line-length
-    return this.http.get<Genre[]>(this.APIUrl + '/actors/' + actorID + '/genres?sorted=' + String(sorted) + '&sortDirection=' + String(sortDirection));
-  }
-
-  getGenresByDirector(directorID: string, sorted: boolean, sortDirection: boolean): Observable<Genre[]>{
-    // tslint:disable-next-line:max-line-length
-    return this.http.get<Genre[]>(this.APIUrl + '/directors/' + directorID + '/genres?sorted=' + String(sorted) + '&sortDirection=' + String(sortDirection));
+    return this.http.get<Genre[]>(this.APIUrl + path + actorID + '/genres?sorted=' + String(sorted) + '&sortDirection=' + String(sortDirection));
   }
 
   addMovie(val: any): Observable<any>{
     return this.http.post(this.APIUrl + '/movies ', val);
-  }
-
-  deleteActorByID(actorID: string): void {
-    this.http.delete(this.APIUrl + '/' + actorID);
   }
 
   getActorList(): Observable<Actor[]>{
