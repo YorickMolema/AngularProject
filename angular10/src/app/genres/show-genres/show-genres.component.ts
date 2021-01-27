@@ -12,20 +12,29 @@ export class ShowGenresComponent implements OnInit {
 
   constructor(private service: SharedService, private route: ActivatedRoute) { }
 
+
+  path: string | null = '';
+  filter: string | null = '';
   genreList: Genre[] = [];
-  actorID = '';
+  actorID: string | null = '';
   directorID = '';
   urlType: string | null = '';
   public sorted = false;
   public sortDirection = false;
 
   ngOnInit(): void {
-    this.route.url.subscribe(data => {
-      if (data[1]) {
-        this.urlType = data[1].path; // check what type of data is being requested
+    this.route.paramMap.subscribe(params => {
+      if (params.get('actorID')) {
+        this.filter = params.get('actorID') ;
+        this.path = '/actors/';
+        this.refreshGenreList();
+      }
+      if (params.get('directorID')) {
+        this.filter = params.get('directorID') ;
+        this.path = '/directors/';
+        this.refreshGenreList();
       }
     });
-    this.refreshGenreList();
   }
 
   handleFilterClick(event: MouseEvent): void {
@@ -33,16 +42,10 @@ export class ShowGenresComponent implements OnInit {
   }
 
   refreshGenreList(): void {
-    if (this.urlType === 'get-by-actor') {
-      this.service.getGenresByActor(this.actorID, this.sorted, this.sortDirection).subscribe(data => {
-          this.genreList = data;
-        });
-    } else if (this.urlType === 'get-by-director') {
-      this.service.getGenresByDirector(this.directorID, this.sorted, this.sortDirection).subscribe(data => {
-          this.genreList = data;
-        });
-    } else {
-      this.genreList = [];
+    if (this.path && this.filter) {
+      this.service.getGenres(this.path, this.filter).subscribe(data => {
+        this.genreList = data;
+      });
     }
   }
 
