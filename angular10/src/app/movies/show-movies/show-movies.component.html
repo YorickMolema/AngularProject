@@ -14,7 +14,7 @@
     <a [routerLink]="'/movies/get-by-director/'+filterValueMoviesDirector">Search</a>
     <input [(ngModel)]="filterValueMoviesImdbURL" name="filter" class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search by Imdb URL" aria-label="Search by Imdb URL"
            mdbInput>
-    <a [routerLink]="'/movies/'+filterValueMoviesImdbURL">Search</a>
+    <a [routerLink]="'/movies/'+(filterValueMoviesImdbURL.replace('https://www.imdb.com/title/', '').replace('/',''))">Search</a>
 
     <br>
     <br>
